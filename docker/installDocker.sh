@@ -15,3 +15,5 @@ sudo apt-get install docker-ce
 # Verify the installation
 sudo docker run hello-world
 
+# Build docker image
+sudo docker build -t "debian:t2" .
