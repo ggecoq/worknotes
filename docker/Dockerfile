@@ -32,9 +32,8 @@ RUN pip2 install pyang requests-file \
  && ln -s /usr/local/bin/pyang /usr/bin
 
 # Install shadow socks
-RUN wget --no-check-certificate -O shadowsocks-r.sh https://raw.githubusercontent.com/ggecoq/worknotes/develop/docker/shadowsocks-r.sh
-RUN chmod +x shadowsocks-r.sh
-RUN shadowsocks-r.sh 2>&1 | tee shadowsocks-r.log
- 
+RUN cd /usr/bin && wget --no-check-certificate -O shadowsocks-r.sh https://raw.githubusercontent.com/ggecoq/worknotes/develop/docker/shadowsocks-r.sh
+RUN cd /usr/bin && ls -al; pwd &&  chmod +x /usr/bin/shadowsocks-r.sh && pwd && ls -al &&  /usr/bin/shadowsocks-r.sh 2>&1 | tee shadowsocks-r.log
+
 
 
