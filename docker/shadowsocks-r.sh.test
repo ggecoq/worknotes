@@ -446,23 +446,6 @@ else
     fast_open="false"
 fi
 
-if   [ "${selected}" == "1" ]; then
-    if [ ! -d "$(dirname ${shadowsocks_python_config})" ]; then
-        mkdir -p $(dirname ${shadowsocks_python_config})
-    fi
-    cat > ${shadowsocks_python_config}<<-EOF
-{
-    "server":"0.0.0.0",
-    "server_port":${shadowsocksport},
-    "local_address":"127.0.0.1",
-    "local_port":1080,
-    "password":"${shadowsockspwd}",
-    "timeout":300,
-    "method":"${shadowsockscipher}",
-    "fast_open":${fast_open}
-}
-EOF
-elif [ "${selected}" == "2" ]; then
     if [ ! -d "$(dirname ${shadowsocks_r_config})" ]; then
         mkdir -p $(dirname ${shadowsocks_r_config})
     fi
@@ -486,63 +469,6 @@ elif [ "${selected}" == "2" ]; then
     "workers":1
 }
 EOF
-elif [ "${selected}" == "3" ]; then
-    if [ ! -d "$(dirname ${shadowsocks_go_config})" ]; then
-        mkdir -p $(dirname ${shadowsocks_go_config})
-    fi
-    cat > ${shadowsocks_go_config}<<-EOF
-{
-    "server":"0.0.0.0",
-    "server_port":${shadowsocksport},
-    "local_port":1080,
-    "password":"${shadowsockspwd}",
-    "method":"${shadowsockscipher}",
-    "timeout":300
-}
-EOF
-elif [ "${selected}" == "4" ]; then
-    local server_value="\"0.0.0.0\""
-    if get_ipv6; then
-        server_value="[\"[::0]\",\"0.0.0.0\"]"
-    fi
-
-    if [ ! -d "$(dirname ${shadowsocks_libev_config})" ]; then
-        mkdir -p $(dirname ${shadowsocks_libev_config})
-    fi
-
-    if [ "${libev_obfs}" == "y" ] || [ "${libev_obfs}" == "Y" ]; then
-        cat > ${shadowsocks_libev_config}<<-EOF
-{
-    "server":${server_value},
-    "server_port":${shadowsocksport},
-    "password":"${shadowsockspwd}",
-    "timeout":300,
-    "user":"nobody",
-    "method":"${shadowsockscipher}",
-    "fast_open":${fast_open},
-    "nameserver":"8.8.8.8",
-    "mode":"tcp_and_udp",
-    "plugin":"obfs-server",
-    "plugin_opts":"obfs=${shadowsocklibev_obfs}"
-}
-EOF
-    else
-        cat > ${shadowsocks_libev_config}<<-EOF
-{
-    "server":${server_value},
-    "server_port":${shadowsocksport},
-    "password":"${shadowsockspwd}",
-    "timeout":300,
-    "user":"nobody",
-    "method":"${shadowsockscipher}",
-    "fast_open":${fast_open},
-    "nameserver":"8.8.8.8",
-    "mode":"tcp_and_udp"
-}
-EOF
-    fi
-
-fi
 }
 
 install_dependencies(){
@@ -605,9 +531,6 @@ install_select(){
     done
     read -p "Please enter a number (Default ${software[0]}):" selected
     [ -z "${selected}" ] && selected="1"
-
-    # change to SS-r
-    selected="2"
     case "${selected}" in
         1|2|3|4)
         echo
