@@ -25,6 +25,7 @@ RUN apt-get -qq update && apt-get -qq upgrade -y \
     sudo \
     vim \
     wget \
+    procps \
  && apt-get -qq autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Pyang not available as Debian package
