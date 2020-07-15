@@ -1,0 +1,31 @@
+1, Microchip
+
+
+
+2, Microchip switchtec
+
+
+
+3, Microchip Burnaby
+
+
+
+4, network
+4.1 setup dns in virtualbox vm
+enable vpn
+reboot virtualbox ubuntu guest
+
+4.2 set shared folder on windows
+\\pvregstorage\trident_storage\PREPs\500793-sony_nt_performance_dma
+And use credentials:
+user: pvregstorage\pvuser
+pass: pvlab
+
+in windows cmd line:
+net use z: \\pvregstorage\trident_storage\PREPs\500793-sony_nt_performance_dma /USER:pvregstorage\pvuser pvlab
+
+
+
+
+
+
